@@ -1,7 +1,7 @@
 **Designing and Securing Modern Computing Systems**
 From Logic Gates to Trusted Kernels
 
-# Project Architecture-2 --- Add a Split Cache
+# Project Logic-2 --- Slightly More Advanced States Machines
 
 ## Purpose: Build Circuits and then Test them to Verify they Work
 
@@ -46,35 +46,31 @@ earlier:
 7**
 
     module fib_lfsr8_1237 (
-     input           clk,
-     input           reset,
+       input           clk,
+       input           reset,
        input   [7:0]   reset_val,
        output  [7:0]   fsm_output
     );
 
         reg     [7:0]   counter;
-     assign fsm_output = counter;
+        assign fsm_output = counter;
 
         wire    [7:0]   next_val = 
 
     {
-                        counter[6],
-                      counter[5],
-                      counter[4],
-                      counter[3],
-                      counter[2],
-                      counter[1],
-                      counter[0],
-                      counter[1] ^ (counter[2] ^ (counter[3] ^ counter[7]))
-        
-
-    }
-
-    ;
+        counter[6],
+        counter[5],
+        counter[4],
+        counter[3],
+        counter[2],
+        counter[1],
+        counter[0],
+        counter[1] ^ (counter[2] ^ (counter[3] ^ counter[7]))
+    };
 
         always @ (posedge clk) begin
-         counter <= (reset) ? reset_val : next_val;
-       end
+           counter <= (reset) ? reset_val : next_val;
+        end
 
     endmodule
 
@@ -111,35 +107,31 @@ comparison:
 **Figure: Galois-style LFSR --- 8-bit LFSR with taps at 1, 2, 3, and 7**
 
     module gal_lfsr8_1237 (
-     input           clk,
-     input           reset,
+       input           clk,
+       input           reset,
        input   [7:0]   reset_val,
        output  [7:0]   fsm_output
     );
 
         reg     [7:0]   counter;
-     assign fsm_output = counter;
+        assign fsm_output = counter;
 
         wire    [7:0]   next_val = 
 
     {
-                        counter[6],
-                      counter[5],
-                      counter[4],
-                      counter[3] ^ counter[7],
-                     counter[2] ^ counter[7],
-                     counter[1] ^ counter[7],
-                     counter[0],
-                      counter[7]
-       
-
-    }
-
-    ;
+        counter[6],
+        counter[5],
+        counter[4],
+        counter[3] ^ counter[7],
+        counter[2] ^ counter[7],
+        counter[1] ^ counter[7],
+        counter[0],
+        counter[7]
+    };
 
         always @ (posedge clk) begin
-         counter <= (reset) ? reset_val : next_val;
-       end
+           counter <= (reset) ? reset_val : next_val;
+        end
 
     endmodule
 
@@ -364,42 +356,38 @@ which shows the interface that the **top.v** test harness expects, plus
 the shift-register aspects of the design.
 
     module random16 (
-      input clk,
+       input clk,
        input reset,
-     input   [15:0] init,
-     output  [15:0] out
+       input   [15:0] init,
+       output  [15:0] out
     );
 
         reg     [15:0]  counter;
-     assign out = counter;
+        assign out = counter;
 
         wire    [15:0]  next_val = 
 
     {
-                        counter[14],
-                     counter[13],
-                     counter[12],
-                     counter[11],
-                     counter[10],
-                     counter[9],
-                      counter[8],
-                      counter[7],
-                      counter[6],
-                      counter[5],
-                      counter[4],
-                      counter[3],
-                      counter[2],
-                      counter[1],
-                      counter[0],
-                      counter[15]
-      
-
-    }
-
-    ;
+        counter[14],
+        counter[13],
+        counter[12],
+        counter[11],
+        counter[10],
+        counter[9],
+        counter[8],
+        counter[7],
+        counter[6],
+        counter[5],
+        counter[4],
+        counter[3],
+        counter[2],
+        counter[1],
+        counter[0],
+        counter[15]
+    };
 
         always @ (posedge clk) begin
-         counter <= (reset) ? init : next_val;
+           counter <= (reset) ? init : next_val;
         end
 
     endmodule
@@ -535,27 +523,27 @@ The following is a skeleton Verilog file to start from:
 
     module satdec (
         input   [15:0]  in,
-      output  [15:0]  out
+        output  [15:0]  out
     );
-     wire            min = (in == 0);
-     wire    [15:0]  minus1 = in - 1;
-     assign out = (min) ? in : minus1;
+        wire            min = (in == 0);
+        wire    [15:0]  minus1 = in - 1;
+        assign out = (min) ? in : minus1;
     endmodule
 
     module add16 (
        input clk,
        input reset,
-     input   [15:0]  init1,
+       input   [15:0]  init1,
        input   [15:0]  init2,
        output          v,
        output  [15:0]  out
     );
 
         assign v = done;
-     assign out = ctr2;
+        assign out = ctr2;
 
         reg     [15:0]  ctr1, ctr2;
-      wire            i1_small =  // your code here
+        wire            i1_small =  // your code here
         wire            i1_big =        // your code here
         wire            done =          // your code here
         wire    [15:0]  init_ctr1 = // your code here
@@ -569,9 +557,9 @@ The following is a skeleton Verilog file to start from:
         satdec mydec                    // your code here
 
         always @ (posedge clk) begin
-         ctr1 <= ctr1_in;
-         ctr2 <= ctr2_in;
-     end
+           ctr1 <= ctr1_in;
+           ctr2 <= ctr2_in;
+        end
 
     endmodule
 
@@ -618,20 +606,20 @@ The following is a skeleton Verilog file to start from:
 
     module satdec (
         input   [7:0]   in,
-      output  [7:0]   out
+        output  [7:0]   out
     );
-     wire            min = (in == 0);
-     wire    [7:0]   minus1 = in - 1;
-     assign out = (min) ? in : minus1;
+        wire            min = (in == 0);
+        wire    [7:0]   minus1 = in - 1;
+        assign out = (min) ? in : minus1;
     endmodule
 
     module mul8 (
         input clk,
-       input reset,
-     input   [7:0]   init1,
-       input   [7:0]   init2,
-       output          v,
-       output  [15:0]  out
+        input reset,
+        input   [7:0]   init1,
+        input   [7:0]   init2,
+        output          v,
+        output  [15:0]  out
     );
 
         assign  v = done;
@@ -639,20 +627,12 @@ The following is a skeleton Verilog file to start from:
 
         reg     [7:0]   cand;
         reg     [15:0]  product;
-     wire            i1_small =  // your code here
+        wire            i1_small =  // your code here
         wire            i1_big =        // your code here
         wire            done =          // your code here
         wire    [7:0]   init_cand = // your code here
         wire    [7:0]   init_plier =    // your code here
-        wire    [15:0]  plier =     
-
-    {
-
-    8'd0, init_plier
-
-    }
-
-    ;
+        wire    [15:0]  plier = { 8'd0, init_plier };
         wire    [7:0]   cand_in =       // your code here
         wire    [15:0]  prod_in =       // your code here
         wire    [15:0]  sum =           // your code here
@@ -662,9 +642,9 @@ The following is a skeleton Verilog file to start from:
         satdec mydec                    // your code here
 
         always @ (posedge clk) begin
-         cand <= cand_in;
-         product <= prod_in;
-      end
+           cand <= cand_in;
+           product <= prod_in;
+        end
 
     endmodule
 
@@ -755,9 +735,9 @@ resembles reality:
 The following is a skeleton Verilog file to start from:
 
     module mul8 (
-      input clk,
+       input clk,
        input reset,
-     input   [7:0]   init1,
+       input   [7:0]   init1,
        input   [7:0]   init2,
        output          v,
        output  [15:0]  out
@@ -767,21 +747,13 @@ The following is a skeleton Verilog file to start from:
         assign  out = product;
 
         reg     [7:0]   mplier;
-      reg     [15:0]  mcand;
-       reg     [15:0]  product;
+        reg     [15:0]  mcand;
+        reg     [15:0]  product;
 
-        wire    [15:0]  ext_init2 =     
-
-    {
-
-    8'd0, init2
-
-    }
-
-    ;
+        wire    [15:0]  ext_init2 = { 8'd0, init2 };
 
         wire            done =          (mplier == 0);
-       wire            lsb =           // your code here
+        wire            lsb =           // your code here
 
         wire    [7:0]   mplier_shr =    // your code here
         wire    [15:0]  mcand_shl =     // your code here
@@ -793,9 +765,9 @@ The following is a skeleton Verilog file to start from:
         wire    [15:0]  product_in =    // your code here
 
         always @ (posedge clk) begin
-         mcand <= mcand_in;
+           mcand <= mcand_in;
            product <= product_in;
            mplier <= mplier_in;
-     end
+        end
 
     endmodule
