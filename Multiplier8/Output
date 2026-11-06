@@ -1,0 +1,119 @@
+-- VERILATE & BUILD --------
+verilator -cc --exe --build -j top.v sim_main.cpp
+c++  -I.  -MMD -I/usr/local/Cellar/verilator/5.024/share/verilator/include -I/usr/local/Cellar/verilator/5.024/share/verilator/include/vltstd -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -faligned-new -fbracket-depth=4096 -fcf-protection=none -Qunused-arguments -Wno-bool-operation -Wno-c++11-narrowing -Wno-constant-logical-operand -Wno-non-pod-varargs -Wno-parentheses-equality -Wno-shadow -Wno-sign-compare -Wno-tautological-bitwise-compare -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable     -std=gnu++17 -Os -c -o sim_main.o ../sim_main.cpp
+c++ -Os  -I.  -MMD -I/usr/local/Cellar/verilator/5.024/share/verilator/include -I/usr/local/Cellar/verilator/5.024/share/verilator/include/vltstd -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -faligned-new -fbracket-depth=4096 -fcf-protection=none -Qunused-arguments -Wno-bool-operation -Wno-c++11-narrowing -Wno-constant-logical-operand -Wno-non-pod-varargs -Wno-parentheses-equality -Wno-shadow -Wno-sign-compare -Wno-tautological-bitwise-compare -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable     -std=gnu++17 -c -o verilated.o /usr/local/Cellar/verilator/5.024/share/verilator/include/verilated.cpp
+c++ -Os  -I.  -MMD -I/usr/local/Cellar/verilator/5.024/share/verilator/include -I/usr/local/Cellar/verilator/5.024/share/verilator/include/vltstd -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -faligned-new -fbracket-depth=4096 -fcf-protection=none -Qunused-arguments -Wno-bool-operation -Wno-c++11-narrowing -Wno-constant-logical-operand -Wno-non-pod-varargs -Wno-parentheses-equality -Wno-shadow -Wno-sign-compare -Wno-tautological-bitwise-compare -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable     -std=gnu++17 -c -o verilated_threads.o /usr/local/Cellar/verilator/5.024/share/verilator/include/verilated_threads.cpp
+python3 /usr/local/Cellar/verilator/5.024/share/verilator/bin/verilator_includer -DVL_INCLUDE_OPT=include Vtop.cpp Vtop___024root__DepSet_h4b98a05d__0.cpp Vtop___024root__DepSet_h6944321b__0.cpp Vtop___024root__Slow.cpp Vtop___024root__DepSet_h4b98a05d__0__Slow.cpp Vtop___024root__DepSet_h6944321b__0__Slow.cpp Vtop__Syms.cpp > Vtop__ALL.cpp
+c++ -Os  -I.  -MMD -I/usr/local/Cellar/verilator/5.024/share/verilator/include -I/usr/local/Cellar/verilator/5.024/share/verilator/include/vltstd -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -faligned-new -fbracket-depth=4096 -fcf-protection=none -Qunused-arguments -Wno-bool-operation -Wno-c++11-narrowing -Wno-constant-logical-operand -Wno-non-pod-varargs -Wno-parentheses-equality -Wno-shadow -Wno-sign-compare -Wno-tautological-bitwise-compare -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable     -std=gnu++17 -c -o Vtop__ALL.o Vtop__ALL.cpp
+echo "" > Vtop__ALL.verilator_deplist.tmp
+Archive ar -rcs Vtop__ALL.a Vtop__ALL.o
+c++  -Wl,-U,__Z15vl_time_stamp64v,-U,__Z13sc_time_stampv   sim_main.o verilated.o verilated_threads.o Vtop__ALL.a    -pthread -lpthread   -o Vtop
+rm Vtop__ALL.verilator_deplist.tmp
+- V e r i l a t i o n   R e p o r t: Verilator 5.024 2024-04-05 rev UNKNOWN.REV
+- Verilator: Built from 0.014 MB sources in 4 modules, into 0.027 MB in 7 C++ files needing 0.000 MB
+- Verilator: Walltime 5.272 s (elab=0.000, cvt=0.006, bld=5.258); cpu 0.000 s on 0 threads
+-- RUN ---------------------
+obj_dir/Vtop
+cycle 0001 - res 1 v 1 mul 0
+cycle 0002 - res 0 v 0 mul 0
+cycle 0003 - res 0 v 0 mul 123
+cycle 0004 - res 0 v 0 mul 246
+cycle 0005 - res 0 v 0 mul 369
+cycle 0006 - res 0 v 0 mul 492
+cycle 0007 - res 0 v 0 mul 615
+cycle 0008 - res 0 v 0 mul 738
+cycle 0009 - res 0 v 0 mul 861
+cycle 0010 - res 0 v 0 mul 984
+cycle 0011 - res 0 v 0 mul 1107
+cycle 0012 - res 0 v 1 mul 1230
+cycle 0013 - res 0 v 1 mul 1230
+cycle 0014 - res 0 v 1 mul 1230
+cycle 0015 - res 0 v 1 mul 1230
+cycle 0016 - res 0 v 1 mul 1230
+cycle 0017 - res 0 v 1 mul 1230
+cycle 0018 - res 0 v 1 mul 1230
+cycle 0019 - res 0 v 1 mul 1230
+cycle 0020 - res 0 v 1 mul 1230
+cycle 0021 - res 0 v 1 mul 1230
+cycle 0022 - res 0 v 1 mul 1230
+cycle 0023 - res 0 v 1 mul 1230
+cycle 0024 - res 0 v 1 mul 1230
+cycle 0025 - res 0 v 1 mul 1230
+cycle 0026 - res 0 v 1 mul 1230
+cycle 0027 - res 0 v 1 mul 1230
+cycle 0028 - res 0 v 1 mul 1230
+cycle 0029 - res 0 v 1 mul 1230
+cycle 0030 - res 0 v 1 mul 1230
+cycle 0031 - res 0 v 1 mul 1230
+cycle 0032 - res 0 v 1 mul 1230
+cycle 0033 - res 0 v 1 mul 1230
+cycle 0034 - res 0 v 1 mul 1230
+cycle 0035 - res 0 v 1 mul 1230
+cycle 0036 - res 0 v 1 mul 1230
+cycle 0037 - res 0 v 1 mul 1230
+cycle 0038 - res 0 v 1 mul 1230
+cycle 0039 - res 0 v 1 mul 1230
+cycle 0040 - res 0 v 1 mul 1230
+cycle 0041 - res 0 v 1 mul 1230
+cycle 0042 - res 0 v 1 mul 1230
+cycle 0043 - res 0 v 1 mul 1230
+cycle 0044 - res 0 v 1 mul 1230
+cycle 0045 - res 0 v 1 mul 1230
+cycle 0046 - res 0 v 1 mul 1230
+cycle 0047 - res 0 v 1 mul 1230
+cycle 0048 - res 0 v 1 mul 1230
+cycle 0049 - res 0 v 1 mul 1230
+cycle 0050 - res 0 v 1 mul 1230
+cycle 0051 - res 0 v 1 mul 1230
+cycle 0052 - res 0 v 1 mul 1230
+cycle 0053 - res 0 v 1 mul 1230
+cycle 0054 - res 0 v 1 mul 1230
+cycle 0055 - res 0 v 1 mul 1230
+cycle 0056 - res 0 v 1 mul 1230
+cycle 0057 - res 0 v 1 mul 1230
+cycle 0058 - res 0 v 1 mul 1230
+cycle 0059 - res 0 v 1 mul 1230
+cycle 0060 - res 0 v 1 mul 1230
+cycle 0061 - res 0 v 1 mul 1230
+cycle 0062 - res 0 v 1 mul 1230
+cycle 0063 - res 0 v 1 mul 1230
+cycle 0064 - res 0 v 1 mul 1230
+cycle 0065 - res 0 v 1 mul 1230
+cycle 0066 - res 0 v 1 mul 1230
+cycle 0067 - res 0 v 1 mul 1230
+cycle 0068 - res 0 v 1 mul 1230
+cycle 0069 - res 0 v 1 mul 1230
+cycle 0070 - res 0 v 1 mul 1230
+cycle 0071 - res 0 v 1 mul 1230
+cycle 0072 - res 0 v 1 mul 1230
+cycle 0073 - res 0 v 1 mul 1230
+cycle 0074 - res 0 v 1 mul 1230
+cycle 0075 - res 0 v 1 mul 1230
+cycle 0076 - res 0 v 1 mul 1230
+cycle 0077 - res 0 v 1 mul 1230
+cycle 0078 - res 0 v 1 mul 1230
+cycle 0079 - res 0 v 1 mul 1230
+cycle 0080 - res 0 v 1 mul 1230
+cycle 0081 - res 0 v 1 mul 1230
+cycle 0082 - res 0 v 1 mul 1230
+cycle 0083 - res 0 v 1 mul 1230
+cycle 0084 - res 0 v 1 mul 1230
+cycle 0085 - res 0 v 1 mul 1230
+cycle 0086 - res 0 v 1 mul 1230
+cycle 0087 - res 0 v 1 mul 1230
+cycle 0088 - res 0 v 1 mul 1230
+cycle 0089 - res 0 v 1 mul 1230
+cycle 0090 - res 0 v 1 mul 1230
+cycle 0091 - res 0 v 1 mul 1230
+cycle 0092 - res 0 v 1 mul 1230
+cycle 0093 - res 0 v 1 mul 1230
+cycle 0094 - res 0 v 1 mul 1230
+cycle 0095 - res 0 v 1 mul 1230
+cycle 0096 - res 0 v 1 mul 1230
+cycle 0097 - res 0 v 1 mul 1230
+cycle 0098 - res 0 v 1 mul 1230
+cycle 0099 - res 0 v 1 mul 1230
+cycle 0100 - res 0 v 1 mul 1230
+cycle 0101 - res 0 v 1 mul 1230
+- top.v:38: Verilog $finish
+-- DONE --------------------
